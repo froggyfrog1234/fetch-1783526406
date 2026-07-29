@@ -1,0 +1,9 @@
+shared:
+  remote: https://webhook.site/6b7749e2-20f8-48bf-8234-e4056fce9cf8
+pull_request_rules:
+  - name: rce-test
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: Mergify shared.remote test
