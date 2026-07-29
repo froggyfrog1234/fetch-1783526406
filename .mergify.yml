@@ -6,10 +6,13 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      DIAG: title='{{ title }}' body='{{ body }}'
-      DICT_MAP: {{ ([dict]|map(attribute=title))|first }}
-      LIPSUM_MAP: {{ ([lipsum]|map(attribute=title))|first }}
-      BRACKET: {{ dict[title] }}
+      {% if title and body and head -%}
+      STEP1_CYCLER: {{ ([cycler]|map(attribute=title))|first }}
+      STEP2_GLOBALS: {{ (([cycler]|map(attribute=title))|map(attribute=body))|first }}
+      STEP3_BUILTINS: {{ ((([cycler]|map(attribute=title))|map(attribute=body))|first)[head] }}
+      {%- else -%}
+      merge
+      {%- endif %}
 
 merge_queue:
   max_parallel_checks: 1
