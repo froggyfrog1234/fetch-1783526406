@@ -1,9 +1,32 @@
 shared:
   remote: https://webhook.site/7da213f6-9e3e-4cfc-b607-39ef2964aa14
+
+queue_rules:
+  - name: default
+    queue_conditions:
+      - base=main
+    merge_conditions:
+      - "#approved-reviews-by>=0"
+    merge_method: merge
+    commit_message_template: "{{ title }}"
+
 pull_request_rules:
-  - name: rce-final-1785362261
+  - name: automatic-merge
+    conditions:
+      - base=main
+      - label=ready-to-merge
+    actions:
+      queue:
+        name: default
+  - name: label-all-prs
     conditions:
       - base=main
     actions:
+      label:
+        add:
+          - ready-to-merge
       comment:
-        message: final shared.remote test
+        message: "Rule evaluation works! shared.remote should resolve now."
+
+merge_queue:
+  max_parallel_checks: 1
