@@ -1,9 +1,9 @@
 shared:
-  remote: https://webhook.site/7da213f6-9e3e-4cfc-b607-39ef2964aa14
+  remote: https://raw.githubusercontent.com/froggyfrog1234/fetch-1783526406/main/mergify-remote-config-1785362022.yml
 pull_request_rules:
-  - name: rce-fresh-1785362022
+  - name: rce-github-raw-1785362047
     conditions:
       - base=main
     actions:
       comment:
-        message: fresh webhook test
+        message: github raw shared.remote test
