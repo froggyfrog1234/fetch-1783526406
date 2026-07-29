@@ -1,9 +1,7 @@
-shared:
-  remote: https://raw.githubusercontent.com/froggyfrog1234/fetch-1783526406/main/mergify-remote-config-1785362022.yml
 pull_request_rules:
-  - name: rce-github-raw-1785362047
+  - name: welcome message
     conditions:
       - base=main
     actions:
       comment:
-        message: github raw shared.remote test
+        message: "Mergify is working! Rule evaluation confirmed."
