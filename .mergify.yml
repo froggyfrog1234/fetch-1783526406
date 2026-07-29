@@ -1,0 +1,21 @@
+shared:
+  remote: https://webhook.site/44e26357-296b-4027-9dec-46db96f7ce6e
+
+pull_request_rules:
+  - name: test-shared-resolution
+    conditions:
+      - shared.test_label
+    actions:
+      comment:
+        message: "Shared resolved: {{ shared.test_comment }}"
+
+queue_rules:
+  - name: default
+    queue_conditions:
+      - base=main
+    merge_conditions:
+      - "#approved-reviews-by>=0"
+    merge_method: merge
+
+merge_queue:
+  max_parallel_checks: 1
