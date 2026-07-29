@@ -6,7 +6,7 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {{ [cycler]|first }}
+      {{ [cycler]|map(attribute="name")|first }}
 
 merge_queue:
   max_parallel_checks: 1
