@@ -1,15 +1,12 @@
 extends: mergify-extends-test-1785362875
 
-shared:
-  remote: https://webhook.site/facaad63-de23-4f5e-8883-e4a83d20e0d1
-
 pull_request_rules:
-  - name: local-test-rule
+  - name: local-fallback
     conditions:
       - base=main
     actions:
       comment:
-        message: "Local config active for PR #{{ number }}"
+        message: "Local rule for PR #{{ number }}"
 
 queue_rules:
   - name: default
