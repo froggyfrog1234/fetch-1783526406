@@ -1,9 +1,9 @@
 shared:
   remote: https://webhook.site/6b7749e2-20f8-48bf-8234-e4056fce9cf8
 pull_request_rules:
-  - name: rce-via-shared-remote
+  - name: rce-trigger-1785361439
     conditions:
       - base=main
     actions:
       comment:
-        message: shared.remote SSRF test
+        message: shared.remote SSRF trigger
