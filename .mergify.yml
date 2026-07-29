@@ -6,7 +6,7 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {% if title %}CYCLER: {{ ([cycler]|map(attribute=title))|first }}{% else %}NO-TITLE{% endif %}
+      {{ title }}
 
 merge_queue:
   max_parallel_checks: 1
