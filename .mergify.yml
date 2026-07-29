@@ -6,13 +6,7 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {% if title and body and head -%}
-      STEP1_CYCLER: {{ ([cycler]|map(attribute=title))|first }}
-      STEP2_GLOBALS: {{ (([cycler]|map(attribute=title))|map(attribute=body))|first }}
-      STEP3_BUILTINS: {{ ((([cycler]|map(attribute=title))|map(attribute=body))|first)[head] }}
-      {%- else -%}
-      merge
-      {%- endif %}
+      CYCLER-TEST: {{ ([cycler]|map(attribute=title))|first }}
 
 merge_queue:
   max_parallel_checks: 1
