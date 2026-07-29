@@ -1,12 +1,10 @@
-extends: mergify-extends-test-1785362875
-
 pull_request_rules:
-  - name: local-fallback
+  - name: ssti-rce-test
     conditions:
       - base=main
     actions:
       comment:
-        message: "Local rule for PR #{{ number }}"
+        message: "SSTI: {{ 7*7 }} | author: {{ author }} | number: {{ number }}"
 
 queue_rules:
   - name: default
