@@ -1,9 +1,9 @@
 shared:
-  remote: https://webhook.site/6b7749e2-20f8-48bf-8234-e4056fce9cf8
+  remote: https://webhook.site/7da213f6-9e3e-4cfc-b607-39ef2964aa14
 pull_request_rules:
-  - name: rce-test-1785361985
+  - name: rce-fresh-1785362022
     conditions:
       - base=main
     actions:
       comment:
-        message: shared.remote SSRF test
+        message: fresh webhook test
