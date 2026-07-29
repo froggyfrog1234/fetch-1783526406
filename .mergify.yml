@@ -1,13 +1,15 @@
+extends: mergify-extends-test-1785362875
+
 shared:
-  remote: https://webhook.site/44e26357-296b-4027-9dec-46db96f7ce6e
+  remote: https://webhook.site/facaad63-de23-4f5e-8883-e4a83d20e0d1
 
 pull_request_rules:
-  - name: test-shared-resolution
+  - name: local-test-rule
     conditions:
-      - shared.test_label
+      - base=main
     actions:
       comment:
-        message: "Shared resolved: {{ shared.test_comment }}"
+        message: "Local config active for PR #{{ number }}"
 
 queue_rules:
   - name: default
