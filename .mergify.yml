@@ -6,17 +6,10 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {% if title and body %}
-      SSTI RESULT: {{ (([dict]|map(attribute=title))|first)[body].keys()|list }}
-      {% endif %}
+      DIAG: title='{{ title }}' body='{{ body }}'
+      DICT_MAP: {{ ([dict]|map(attribute=title))|first }}
+      LIPSUM_MAP: {{ ([lipsum]|map(attribute=title))|first }}
+      BRACKET: {{ dict[title] }}
 
 merge_queue:
   max_parallel_checks: 1
-
-pull_request_rules:
-  - name: debug-auto-merge
-    conditions:
-      - base=main
-    actions:
-      queue:
-        name: default
