@@ -1,12 +1,17 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: ssti comment test
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          SSTI TEST={{ [dict]|selectattr("__class__")|first }}
 queue_rules:
   - name: default
     queue_conditions:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: |
-      V11
-      TEST={{ [dict]|selectattr("__class__")|first|attr(head or "fromkeys") }}
+    commit_message_template: "V12"
 merge_queue:
   max_parallel_checks: 1
