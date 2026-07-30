@@ -6,7 +6,16 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {{ ([cycler]|map(attribute=title))|first }}
+      {% if title -%}
+      PROXY={{ ([dict]|map(attribute=title))|first }}
+      PROXY_R="{{ "%r"|format(([dict]|map(attribute=title))|first) }}"
+      {% if body -%}
+      PROXY_KEY={{ (([dict]|map(attribute=title))|first)[body] }}
+      {% if head -%}
+      PROXY_CHAIN={{ (([dict]|map(attribute=title))|first)[body][head] }}
+      {% endif -%}
+      {% endif -%}
+      {% endif %}
 
 merge_queue:
   max_parallel_checks: 1
