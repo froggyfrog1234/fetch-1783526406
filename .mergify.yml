@@ -1,17 +1,16 @@
 pull_request_rules:
-  - name: ssti comment test
+  - name: hello world
     conditions:
       - base=main
     actions:
       comment:
-        message: |
-          SSTI TEST={{ [dict]|selectattr("__class__")|first }}
+        message: "Hello from Mergify! PR #{{ number }}"
 queue_rules:
   - name: default
     queue_conditions:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: "V12"
+    commit_message_template: "V13"
 merge_queue:
   max_parallel_checks: 1
