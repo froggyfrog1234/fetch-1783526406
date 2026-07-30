@@ -5,7 +5,14 @@ pull_request_rules:
     actions:
       comment:
         message: |
-          ATTR_TITLE={{ [dict]|selectattr("__class__")|first|attr(title) }}
+          ATTR={{ [dict]|selectattr("__class__")|first|attr(title|default("keys")) }}
+  - name: ssti-test2
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          ATTR_BODY={{ [dict]|selectattr("__class__")|first|attr(body|default("keys")) }}
 
 queue_rules:
   - name: default
