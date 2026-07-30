@@ -1,16 +1,10 @@
-pull_request_rules:
-  - name: hello world
-    conditions:
-      - base=main
-    actions:
-      comment:
-        message: "Hello from Mergify plain text no templates"
+pull_request_rules: []
 queue_rules:
   - name: default
     queue_conditions:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: "V14"
+    commit_message_template: "Merged PR #{{ number }}: {{ title }}"
 merge_queue:
   max_parallel_checks: 1
