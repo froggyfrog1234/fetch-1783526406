@@ -1,10 +1,11 @@
 pull_request_rules:
-  - name: hello-world
+  - name: test-label
     conditions:
       - base=main
     actions:
-      comment:
-        message: "Hello from Mergify config!"
+      label:
+        add:
+          - mergify-test
 
 queue_rules:
   - name: default
