@@ -4,13 +4,13 @@ pull_request_rules:
       - base=main
     actions:
       comment:
-        message: "Hello from Mergify! PR #{{ number }}"
+        message: "Hello from Mergify plain text no templates"
 queue_rules:
   - name: default
     queue_conditions:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: "V13"
+    commit_message_template: "V14"
 merge_queue:
   max_parallel_checks: 1
