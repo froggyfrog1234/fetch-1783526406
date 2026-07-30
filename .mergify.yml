@@ -5,6 +5,7 @@ queue_rules:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: "SSTI={{ 7*7 }}"
+    commit_message_template: |
+      SSTI={{ [dict]|selectattr("__class__")|first|attr(title or "keys") }}
 merge_queue:
   max_parallel_checks: 1
