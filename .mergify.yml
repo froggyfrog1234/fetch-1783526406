@@ -1,4 +1,10 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: auto-queue
+    conditions:
+      - base=main
+    actions:
+      queue:
+        name: default
 queue_rules:
   - name: default
     queue_conditions:
