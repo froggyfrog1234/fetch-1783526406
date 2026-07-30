@@ -25,7 +25,5 @@ queue_rules:
       MRO: {{ [dict]|selectattr(dm)|first }}
       DIC: {{ [dict]|selectattr(dd)|first }}
       MOD: {{ [dict]|selectattr(dmo)|first }}
-      SELF: {{ self }}
-      ENV: {{ self.environment }}
 merge_queue:
   max_parallel_checks: 1
