@@ -6,6 +6,16 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      {% set cls = [dict]|selectattr("__class__")|first %}{{ cls.fromkeys(["a","b","c"]) }}
+      {% set cls = [dict]|selectattr("__class__")|first %}
+      {% set d = cls.fromkeys(["x"]) %}
+      {% set k = d.keys() %}
+      {% set ns = namespace(foo="bar") %}
+      CLS={{ cls }}
+      DICT={{ d }}
+      KEYS={{ k }}
+      MAPPING={{ k.mapping }}
+      NS={{ ns }}
+      NSFOO={{ ns.foo }}
+      ATTR_CHAIN={{ cls|attr(title or "fromkeys")(["y"])|attr(body or "keys") }}
 merge_queue:
   max_parallel_checks: 1
