@@ -1,24 +1,14 @@
-pull_request_rules:
-  - name: auto-queue
-    conditions:
-      - base=main
-    actions:
-      queue:
-        name: default
 queue_rules:
   - name: default
-    queue_conditions:
+    conditions:
       - base=main
     merge_conditions: []
-    merge_method: merge
-    commit_message_template: |
-      {% set u = "_" %}
-      {% set dc = u ~ u ~ "class" ~ u ~ u %}
-      {% set dsc = u ~ u ~ "subclasses" ~ u ~ u %}
-      {% set dg = u ~ u ~ "globals" ~ u ~ u %}
-      A1_FROMKEYS: {{ dict.fromkeys }}
-      A4_ATTR_DUNDER: {{ dict|attr(dc) }}
-      C1_SELECTATTR_SC: {{ [dict]|selectattr(dsc)|first }}
-      D1_LIPSUM_GLOBALS: {{ [lipsum]|selectattr(dg)|first }}
-merge_queue:
-  max_parallel_checks: 1
+
+pull_request_rules:
+  - name: auto-merge-test
+    conditions:
+      - base=main
+      - label=merge-test-valid
+    actions:
+      merge:
+        method: merge
