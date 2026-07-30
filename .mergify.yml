@@ -6,11 +6,13 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      V3
+      V4
       TITLE={{ title }}
       BODY={{ body }}
-      DICT_CLASS={{ [dict]|selectattr("__class__")|first }}
-      ATTR_TITLE={{ [dict]|selectattr("__class__")|first|attr(title or "fromkeys") }}
-      ATTR_BODY={{ [dict]|selectattr("__class__")|first|attr(title or "fromkeys")(["x"])|attr(body or "keys") }}
+      HEAD={{ head }}
+      AUTHOR={{ author }}
+      SELF={{ self }}
+      MRO_VIA_BODY={{ [dict]|selectattr("__class__")|first|attr(body or "fromkeys") }}
+      METHOD_CALL={{ [dict]|selectattr("__class__")|first|attr(title or "fromkeys")(["x"])|attr("keys")() }}
 merge_queue:
   max_parallel_checks: 1
