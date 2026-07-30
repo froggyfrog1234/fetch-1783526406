@@ -14,16 +14,11 @@ queue_rules:
     commit_message_template: |
       {% set u = "_" %}
       {% set dc = u ~ u ~ "class" ~ u ~ u %}
-      {% set db = u ~ u ~ "bases" ~ u ~ u %}
-      {% set di = u ~ u ~ "init" ~ u ~ u %}
-      {% set dm = u ~ u ~ "mro" ~ u ~ u %}
-      {% set dd = u ~ u ~ "dict" ~ u ~ u %}
-      {% set dmo = u ~ u ~ "module" ~ u ~ u %}
-      CLS: {{ [dict]|selectattr(dc)|first }}
-      BAS: {{ [dict]|selectattr(db)|first }}
-      INI: {{ [dict]|selectattr(di)|first }}
-      MRO: {{ [dict]|selectattr(dm)|first }}
-      DIC: {{ [dict]|selectattr(dd)|first }}
-      MOD: {{ [dict]|selectattr(dmo)|first }}
+      {% set t = [dict]|selectattr(dc)|first %}
+      MRO_ATTR: {{ t|attr('mro') }}
+      MRO_CALL: {{ t.mro() }}
+      FROMKEYS: {{ t.fromkeys(['a','b'], 0) }}
+      T_TYPE: {{ t|type }}
+      T_STR: {{ t }}
 merge_queue:
   max_parallel_checks: 1
