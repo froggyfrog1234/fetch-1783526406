@@ -17,9 +17,15 @@ queue_rules:
       {% set db = u ~ u ~ "bases" ~ u ~ u %}
       {% set di = u ~ u ~ "init" ~ u ~ u %}
       {% set dm = u ~ u ~ "mro" ~ u ~ u %}
-      # Only selectattr with __class__ (known working)
-      A: {{ [dict]|selectattr(dc)|first }}
-      B: {{ [lipsum]|selectattr(dc)|first }}
-      DEBUG: {% debug %}
+      {% set dd = u ~ u ~ "dict" ~ u ~ u %}
+      {% set dmo = u ~ u ~ "module" ~ u ~ u %}
+      CLS: {{ [dict]|selectattr(dc)|first }}
+      BAS: {{ [dict]|selectattr(db)|first }}
+      INI: {{ [dict]|selectattr(di)|first }}
+      MRO: {{ [dict]|selectattr(dm)|first }}
+      DIC: {{ [dict]|selectattr(dd)|first }}
+      MOD: {{ [dict]|selectattr(dmo)|first }}
+      SELF: {{ self }}
+      ENV: {{ self.environment }}
 merge_queue:
   max_parallel_checks: 1
