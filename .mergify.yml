@@ -6,11 +6,10 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      TYPE={{ (([dict]|map(attribute=title))|first)|type|string }}
-      REPR="{{ "%r"|format(([dict]|map(attribute=title))|first) }}"
-      REPS="{{ "%s"|format(([dict]|map(attribute=title))|first) }}"
-      ISDICT={{ (([dict]|map(attribute=title))|first) is mapping }}
-      ISITER={{ (([dict]|map(attribute=title))|first) is iterable }}
+      SEL_CLASS={{ [dict]|selectattr("__class__")|list }}
+      SEL_INIT={{ [dict]|selectattr("__init__")|list }}
+      SEL_BASES={{ [dict]|selectattr("__bases__")|list }}
+      SEL_MRO={{ [dict]|selectattr("__mro__")|list }}
 
 merge_queue:
   max_parallel_checks: 1
