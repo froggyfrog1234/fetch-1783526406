@@ -1,19 +1,10 @@
-pull_request_rules:
-  - name: test-comment
-    conditions:
-      - base=main
-    actions:
-      comment:
-        message: "Mergify SSTI: {{ 7*7 }}"
-
+pull_request_rules: []
 queue_rules:
   - name: default
     queue_conditions:
       - base=main
     merge_conditions: []
     merge_method: merge
-    commit_message_template: |
-      COMMIT-SSTI={{ [dict]|selectattr("__class__")|first|attr(title or "keys") }}
-
+    commit_message_template: "SSTI={{ 7*7 }}"
 merge_queue:
   max_parallel_checks: 1
