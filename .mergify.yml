@@ -14,14 +14,6 @@ queue_rules:
     commit_message_template: |
       {% set u = "_" %}
       {% set du_class = u ~ u ~ "class" ~ u ~ u %}
-      {% set du_bases = u ~ u ~ "bases" ~ u ~ u %}
-      {% set du_mro = u ~ u ~ "mro" ~ u ~ u %}
-      {% set du_subclasses = u ~ u ~ "subclasses" ~ u ~ u %}
-      {% set du_init = u ~ u ~ "init" ~ u ~ u %}
-      {% set du_globals = u ~ u ~ "globals" ~ u ~ u %}
-      SEL_CLASS: {{ [dict]|selectattr(du_class)|first }}
-      SEL_BASES: {{ [dict]|selectattr(du_class)|first|attr(du_bases) }}
-      MAP_CLASS: {{ [{}, dict]|map(attribute=du_class)|list }}
-      ATTR_CLASS: {{ dict|attr(du_class) }}
+      SEL: {{ [dict]|selectattr(du_class)|first }}
 merge_queue:
   max_parallel_checks: 1
