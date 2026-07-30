@@ -6,7 +6,7 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      V7
-      TEST={{ [lipsum]|selectattr("__class__")|first|attr(title or "fromkeys") }}
+      V8
+      TEST={{ lipsum|attr(title or "fromkeys") }}
 merge_queue:
   max_parallel_checks: 1
