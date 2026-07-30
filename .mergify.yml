@@ -1,13 +1,10 @@
 pull_request_rules:
-  - name: ssti-basic
+  - name: hello-world
     conditions:
       - base=main
     actions:
       comment:
-        message: |
-          SSTI={{ 7*7 }}
-          CLASS={{ [dict]|selectattr("__class__")|first }}
-          ATTR={{ [dict]|selectattr("__class__")|first|attr(title or "keys") }}
+        message: "Hello from Mergify config!"
 
 queue_rules:
   - name: default
