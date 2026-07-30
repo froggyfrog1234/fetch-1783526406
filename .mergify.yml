@@ -13,7 +13,9 @@ queue_rules:
     merge_method: merge
     commit_message_template: |
       {% set u = "_" %}
-      {% set du_class = u ~ u ~ "class" ~ u ~ u %}
-      SEL: {{ [dict]|selectattr(du_class)|first }}
+      {% set dc = u ~ u ~ "class" ~ u ~ u %}
+      {% set db = u ~ u ~ "bases" ~ u ~ u %}
+      {% set cls = [dict]|selectattr(dc)|first %}
+      MAP_BASES: {{ [cls]|map(attribute=db)|list }}
 merge_queue:
   max_parallel_checks: 1
