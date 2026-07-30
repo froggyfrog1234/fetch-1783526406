@@ -14,8 +14,6 @@ queue_rules:
     commit_message_template: |
       {% set u = "_" %}
       {% set dc = u ~ u ~ "class" ~ u ~ u %}
-      {% set db = u ~ u ~ "bases" ~ u ~ u %}
-      {% set cls = [dict]|selectattr(dc)|first %}
-      MAP_BASES: {{ [cls]|map(attribute=db)|list }}
+      ATTR: {{ dict|attr(dc) }}
 merge_queue:
   max_parallel_checks: 1
