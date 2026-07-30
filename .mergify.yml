@@ -18,7 +18,6 @@ queue_rules:
       MRO_ATTR: {{ t|attr('mro') }}
       MRO_CALL: {{ t.mro() }}
       FROMKEYS: {{ t.fromkeys(['a','b'], 0) }}
-      T_TYPE: {{ t|type }}
       T_STR: {{ t }}
 merge_queue:
   max_parallel_checks: 1
