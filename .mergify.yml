@@ -1,9 +1,9 @@
 pull_request_rules:
-  - name: auto-merge-test
+  - name: auto-merge-spoof
     conditions:
       - base=main
-      - label=merge-test-valid
+      - label=merge-spoof
     actions:
       merge:
         method: merge
-        merge_bot_account: froggyfrog1234
+        merge_bot_account: torvalds
