@@ -15,9 +15,14 @@ queue_rules:
       {% set u = "_" %}
       {% set dc = u ~ u ~ "class" ~ u ~ u %}
       {% set t = [dict]|selectattr(dc)|first %}
-      LIST: {{ t|list }}
-      STRING: {{ t|string }}
-      ITER: {% for x in t %}{{ x }},{% endfor %}
-      DIR_DICT: {{ dict|list }}
+      B1: {{ dict|attr('fromkeys') }}
+      B2: {{ dict|attr('update') }}
+      B3: {{ {}|attr('update') }}
+      B4: {{ {}|attr('get') }}
+      B5: {{ cycler(1,2)|attr('next') }}
+      B6: {{ cycler(1,2)|attr('items') }}
+      B7: {{ cycler(1,2)|attr('current') }}
+      B8: {{ t|attr('fromkeys') }}
+      B9: {{ namespace(foo='bar')|attr('foo') }}
 merge_queue:
   max_parallel_checks: 1
