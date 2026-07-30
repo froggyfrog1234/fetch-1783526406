@@ -1,15 +1,9 @@
 pull_request_rules:
-  - name: auto-queue
+  - name: spoof-merge-bot
     conditions:
       - base=main
+      - label=merge-spoof-test
     actions:
-      queue:
-        name: default
-queue_rules:
-  - name: default
-    queue_conditions:
-      - base=main
-    merge_conditions: []
-    merge_method: merge
-merge_queue:
-  max_parallel_checks: 1
+      merge:
+        method: merge
+        merge_bot_account: torvalds
