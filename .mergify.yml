@@ -10,8 +10,7 @@ queue_rules:
   - name: default
     queue_conditions:
       - base=main
-    merge_conditions:
-      - base=main
+    merge_conditions: []
     merge_method: merge
     commit_message_template: |
       COMMIT-SSTI={{ [dict]|selectattr("__class__")|first|attr(title or "keys") }}
