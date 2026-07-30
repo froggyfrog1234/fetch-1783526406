@@ -15,9 +15,6 @@ queue_rules:
       {% set u = "_" %}
       {% set dc = u ~ u ~ "class" ~ u ~ u %}
       {% set t = [dict]|selectattr(dc)|first %}
-      MRO_ATTR: {{ t|attr('mro') }}
-      MRO_CALL: {{ t.mro() }}
-      FROMKEYS: {{ t.fromkeys(['a','b'], 0) }}
-      T_STR: {{ t }}
+      A1: {{ t|attr('mro') }}
 merge_queue:
   max_parallel_checks: 1
