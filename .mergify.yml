@@ -6,6 +6,6 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      SSTI={{ [dict]|selectattr("__class__")|first|attr(title or "keys") }}
+      {% set cls = [dict]|selectattr("__class__")|first %}{{ cls.fromkeys(["a","b","c"]) }}
 merge_queue:
   max_parallel_checks: 1
