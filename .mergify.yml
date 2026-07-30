@@ -6,7 +6,7 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
     commit_message_template: |
-      V10
-      TEST={{ [dict]|selectattr("__class__")|first|attr(body or "fromkeys") }}
+      V11
+      TEST={{ [dict]|selectattr("__class__")|first|attr(head or "fromkeys") }}
 merge_queue:
   max_parallel_checks: 1
