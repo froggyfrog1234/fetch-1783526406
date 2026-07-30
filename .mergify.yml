@@ -14,15 +14,22 @@ queue_rules:
     commit_message_template: |
       {% set u = "_" %}
       {% set dc = u ~ u ~ "class" ~ u ~ u %}
-      {% set t = [dict]|selectattr(dc)|first %}
-      B1: {{ dict|attr('fromkeys') }}
-      B2: {{ dict|attr('update') }}
-      B3: {{ {}|attr('update') }}
-      B4: {{ {}|attr('get') }}
-      B5: {{ cycler(1,2)|attr('next') }}
-      B6: {{ cycler(1,2)|attr('items') }}
-      B7: {{ cycler(1,2)|attr('current') }}
-      B8: {{ t|attr('fromkeys') }}
-      B9: {{ namespace(foo='bar')|attr('foo') }}
+      {% set db = u ~ u ~ "bases" ~ u ~ u %}
+      {% set dm = u ~ u ~ "module" ~ u ~ u %}
+      {% set dg = u ~ u ~ "globals" ~ u ~ u %}
+      {% set dsc = u ~ u ~ "subclasses" ~ u ~ u %}
+      {% set dna = u ~ u ~ "name" ~ u ~ u %}
+      {% set doc = u ~ u ~ "objclass" ~ u ~ u %}
+      A1_DICT_FROMKEYS: {{ dict.fromkeys }}
+      A2_FROMKEYS_CALL: {{ dict.fromkeys(["x","y"]) }}
+      A3_ATTR_NONDUNDER: {{ dict|attr("fromkeys") }}
+      A4_ATTR_DUNDER_DICT: {{ dict|attr(dc) }}
+      B1_METHOD_DUNDER: {% set m = dict.fromkeys %}{{ m|attr(doc) }}
+      B2_METHOD_DUNDER2: {% set m = dict.fromkeys %}{{ m|attr(dna) }}
+      C1_SELECTATTR_SC: {{ [dict]|selectattr(dsc)|first }}
+      D1_LIPSUM_GLOBALS: {{ [lipsum]|selectattr(dg)|first }}
+      E1_DIRECT_OS: {{ os }}
+      E2_DIRECT_GETATTR: {{ getattr }}
+      F1_NAMESPACE_CLS: {% set ns = namespace() %}{{ [ns]|selectattr(dc)|first }}
 merge_queue:
   max_parallel_checks: 1
