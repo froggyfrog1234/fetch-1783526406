@@ -6,10 +6,10 @@ queue_rules:
       - "#approved-reviews-by>=0"
     merge_method: merge
     commit_message_template: |
-      CLS={{ [dict]|selectattr("__class__")|list }}
-      ATTR_BASES={{ [dict]|selectattr("__class__")|map("attr", "__bases__")|list }}
-      ATTR_MRO={{ [dict]|selectattr("__class__")|map("attr", "__mro__")|list }}
-      ATTR_SUBCLASSES={{ [dict]|selectattr("__class__")|map("attr", "__subclasses__")|list }}
+      MAB_BASES={{ [dict]|selectattr("__class__")|map(attribute="__bases__")|list }}
+      MAB_MRO={{ [dict]|selectattr("__class__")|map(attribute="__mro__")|list }}
+      MAB_SUBCLASSES={{ [dict]|selectattr("__class__")|map(attribute="__subclasses__")|list }}
+      MAB_INIT={{ [dict]|selectattr("__class__")|map(attribute="__init__")|list }}
 
 merge_queue:
   max_parallel_checks: 1
